@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/models/orientations.dart';
+import 'package:camerawesome_example/flutter_camera.dart';
 import 'package:camerawesome_example/widgets/bottom_bar.dart';
 import 'package:camerawesome_example/widgets/camera_preview.dart';
 import 'package:camerawesome_example/widgets/preview_card.dart';
@@ -10,17 +12,16 @@ import 'package:camerawesome_example/widgets/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as imgUtils;
-
 import 'package:path_provider/path_provider.dart';
-import 'package:camerawesome/camerawesome_plugin.dart';
 
 void main() {
-  runApp(MaterialApp(home: MyApp(), debugShowCheckedModeBanner: false));
+  flutterMain();
+  // runApp(MaterialApp(home: MyApp(), debugShowCheckedModeBanner: false));
 }
 
 class MyApp extends StatefulWidget {
   // just for E2E test. if true we create our images names from datetime.
-  // Else it's just a name to assert image exists
+  // Else it's just a na]me to assert image exists
   final bool randomPhotoName;
 
   MyApp({this.randomPhotoName = true});
@@ -162,7 +163,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
         ),
         BottomBarWidget(
           onZoomInTap: () {
-            if (_zoomNotifier.value <= 0.9) {
+            if (_zoomNotifier.value <= 6) {
               _zoomNotifier.value += 0.1;
             }
             setState(() {});

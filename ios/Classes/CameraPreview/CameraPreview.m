@@ -28,6 +28,7 @@
 
     // Creating capture session
     _captureSession = [[AVCaptureSession alloc] init];
+    
     _captureVideoOutput = [AVCaptureVideoDataOutput new];
     _captureVideoOutput.videoSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
     [_captureVideoOutput setAlwaysDiscardsLateVideoFrames:YES];
@@ -82,7 +83,11 @@
     [_captureSession addConnection:_captureConnection];
     
     // Creating photo output
-    _capturePhotoOutput = [AVCapturePhotoOutput new];
+    if (@available(iOS 10.0, *)) {
+        _capturePhotoOutput = [AVCapturePhotoOutput new];
+    } else {
+        // Fallback on earlier versions
+    }
     [_capturePhotoOutput setHighResolutionCaptureEnabled:YES];
     [_captureSession addOutput:_capturePhotoOutput];
     
@@ -284,11 +289,15 @@
 /// Get the first available camera on device (front or rear)
 - (NSString *)selectAvailableCamera:(CameraSensor)sensor {
     NSArray<AVCaptureDevice *> *devices = [[NSArray alloc] init];
-    AVCaptureDeviceDiscoverySession *discoverySession = [AVCaptureDeviceDiscoverySession
-                                                         discoverySessionWithDeviceTypes:@[ AVCaptureDeviceTypeBuiltInWideAngleCamera ]
-                                                         mediaType:AVMediaTypeVideo
-                                                         position:AVCaptureDevicePositionUnspecified];
-    devices = discoverySession.devices;
+    if (@available(iOS 10.0, *)) {
+        AVCaptureDeviceDiscoverySession *discoverySession = [AVCaptureDeviceDiscoverySession
+                                                             discoverySessionWithDeviceTypes:@[ AVCaptureDeviceTypeBuiltInWideAngleCamera ]
+                                                             mediaType:AVMediaTypeVideo
+                                                             position:AVCaptureDevicePositionUnspecified];
+        devices = discoverySession.devices;
+    } else {
+        // Fallback on earlier versions
+    }
     
     NSInteger cameraType = (sensor == Front) ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
     for (AVCaptureDevice *device in devices) {
@@ -319,6 +328,9 @@
     }
     [self start];
 }
+# pragma mark - Rear Camera Selection
+
+
 
 # pragma mark - Camera picture
 
@@ -340,11 +352,14 @@
     }];
     
     // Create settings instance
-    AVCapturePhotoSettings *settings = [AVCapturePhotoSettings photoSettings];
-    [settings setFlashMode:_flashMode];
-    
-    [_capturePhotoOutput capturePhotoWithSettings:settings
-                                         delegate:cameraPicture];
+    if (@available(iOS 10.0, *)) {
+        AVCapturePhotoSettings *settings = [AVCapturePhotoSettings photoSettings];
+        [settings setFlashMode:_flashMode];
+        [_capturePhotoOutput capturePhotoWithSettings:settings
+                                             delegate:cameraPicture];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 # pragma mark - Camera video
