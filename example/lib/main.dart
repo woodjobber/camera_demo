@@ -4,7 +4,6 @@ import 'dart:typed_data';
 
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/models/orientations.dart';
-import 'package:camerawesome_example/flutter_camera.dart';
 import 'package:camerawesome_example/widgets/bottom_bar.dart';
 import 'package:camerawesome_example/widgets/camera_preview.dart';
 import 'package:camerawesome_example/widgets/preview_card.dart';
@@ -14,8 +13,11 @@ import 'package:flutter/services.dart';
 import 'package:image/image.dart' as imgUtils;
 import 'package:path_provider/path_provider.dart';
 
+import 'compass.dart';
+
 void main() {
-  flutterMain();
+  flutterCompassMain();
+  // flutterMain();
   // runApp(MaterialApp(home: MyApp(), debugShowCheckedModeBanner: false));
 }
 

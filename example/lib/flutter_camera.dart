@@ -8,6 +8,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:image/image.dart' as img;
 import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:swipe_direction_detector/swipe_direction_detector.dart';
 import 'package:video_player/video_player.dart';
 
 /// https://github.com/flutter/flutter/issues/29951
@@ -196,18 +197,33 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       return Listener(
         onPointerDown: (_) => _pointers++,
         onPointerUp: (_) => _pointers--,
-        child: CameraPreview(
-          controller,
-          child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onScaleStart: _handleScaleStart,
-              onScaleUpdate: _handleScaleUpdate,
-              onTapDown: (TapDownDetails details) =>
-                  onViewFinderTap(details, constraints),
-            );
-          }),
+        behavior: HitTestBehavior.opaque,
+        child: SwipeDetector(
+          onSwipeRight: () {
+            print('right');
+          },
+          onSwipeLeft: () {
+            print('left');
+          },
+          onSwipeDown: () {
+            print("down");
+          },
+          onSwipeUp: () {
+            print("up");
+          },
+          child: CameraPreview(
+            controller,
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onScaleStart: _handleScaleStart,
+                onScaleUpdate: _handleScaleUpdate,
+                onTapDown: (TapDownDetails details) =>
+                    onViewFinderTap(details, constraints),
+              );
+            }),
+          ),
         ),
       );
     }
@@ -281,7 +297,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   /// Display the thumbnail of the captured image or video.
   Widget _thumbnailWidget() {
     final VideoPlayerController localVideoController = videoController;
-    print('_thumbnailWidget');
     return Expanded(
       child: Align(
         alignment: Alignment.center,
