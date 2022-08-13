@@ -23,6 +23,8 @@ dependencies:
   swipe_direction_detector:
     path: ../../swipe_detector
   flutter_compass:
+#    git: https://github.com/thanhhuan1990/flutter_compass.git
+
   permission_handler:
 dev_dependencies:
   integration_test:

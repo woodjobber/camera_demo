@@ -58,34 +58,30 @@ class _MyAppState extends State<MyCompassApp> {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: <Widget>[
-          ElevatedButton(
-            child: Text('Read Value'),
-            onPressed: () async {
-              final CompassEvent tmp = await FlutterCompass.events.first;
-              setState(() {
-                _lastRead = tmp;
+          StreamBuilder<CompassEvent>(
+              stream: FlutterCompass.events,
+              builder: (_, snapshot) {
+                _lastRead = snapshot.data;
                 _lastReadAt = DateTime.now();
-              });
-            },
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '$_lastRead',
-                    style: Theme.of(context).textTheme.caption,
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '$_lastRead',
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                        Text(
+                          '$_lastReadAt',
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    '$_lastReadAt',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
-              ),
-            ),
-          ),
+                );
+              }),
         ],
       ),
     );
