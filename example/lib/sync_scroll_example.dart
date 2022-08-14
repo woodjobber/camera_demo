@@ -97,15 +97,19 @@ class _ExampleState extends State<Example> {
       children: [
         SizedBox(
           width: MediaQuery.of(context).size.width / 2,
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 controller: rowsControllerHeader,
                 itemCount: models.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text('$index'),
+                  return Flexible(
+                    child: Container(
+                        color: Colors.red,
+                        child: Text('$index', style: TextStyle(fontSize: 20))),
+                    fit: FlexFit.tight,
                   );
                 },
               ),
