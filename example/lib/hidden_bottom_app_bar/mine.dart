@@ -10,10 +10,12 @@ class MinePage extends StatefulWidget {
   State<MinePage> createState() => _MinePageState();
 }
 
-class _MinePageState extends State<MinePage> {
+class _MinePageState extends State<MinePage>
+    with AutomaticKeepAliveClientMixin {
   HiddenWidgetController controller = Get.find();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       color: Colors.amberAccent,
       child: ListView.separated(
@@ -35,4 +37,8 @@ class _MinePageState extends State<MinePage> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
