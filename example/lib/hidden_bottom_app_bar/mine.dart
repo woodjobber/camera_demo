@@ -10,12 +10,10 @@ class MinePage extends StatefulWidget {
   State<MinePage> createState() => _MinePageState();
 }
 
-class _MinePageState extends State<MinePage>
-    with AutomaticKeepAliveClientMixin {
+class _MinePageState extends State<MinePage> {
   HiddenWidgetController controller = Get.find();
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Container(
       color: Colors.amberAccent,
       child: ListView.separated(
@@ -25,8 +23,10 @@ class _MinePageState extends State<MinePage>
           return ListTile(
             leading: Obx(
               () => Offstage(
-                offstage: !controller.visible,
-                child: Icon(Ionicons.ios_radio_button_off),
+                offstage: controller.visible,
+                child: controller.visible
+                    ? Icon(Ionicons.ios_radio_button_on)
+                    : Icon(Ionicons.ios_radio_button_off),
               ),
             ),
             horizontalTitleGap: 5,
@@ -37,8 +37,4 @@ class _MinePageState extends State<MinePage>
       ),
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }

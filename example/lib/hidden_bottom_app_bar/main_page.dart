@@ -11,6 +11,9 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: AppBinding(),
+      routingCallback: (routing) {
+        print(routing.current);
+      },
       getPages: [
         GetPage(name: '/', page: () => IndexWidget(), binding: IndexBinding()),
       ],

@@ -1,4 +1,5 @@
 import 'package:camerawesome_example/hidden_bottom_app_bar/home.dart';
+import 'package:camerawesome_example/hidden_bottom_app_bar/keep_alive_page.dart';
 import 'package:camerawesome_example/hidden_bottom_app_bar/mine.dart';
 import 'package:camerawesome_example/hidden_bottom_app_bar/service.dart';
 import 'package:camerawesome_example/hidden_bottom_app_bar/work.dart';
@@ -68,10 +69,10 @@ class IndexController extends GetxController {
           )),
     ];
     pages = [
-      HomePage(),
-      WorkPage(),
-      ServicePage(),
-      MinePage(),
+      KeepAlivePage(child: HomePage()),
+      KeepAlivePage(child: WorkPage()),
+      KeepAlivePage(child: ServicePage()),
+      KeepAlivePage(child: MinePage()),
     ];
   }
 }

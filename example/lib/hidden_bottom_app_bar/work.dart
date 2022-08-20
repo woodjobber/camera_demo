@@ -12,13 +12,11 @@ class WorkPage extends StatefulWidget {
   State<WorkPage> createState() => _WorkPageState();
 }
 
-class _WorkPageState extends State<WorkPage>
-    with AutomaticKeepAliveClientMixin {
+class _WorkPageState extends State<WorkPage> {
   @override
   Widget build(BuildContext context) {
     print("build work");
     HiddenWidgetController logic = Get.find();
-    super.build(context);
     return Scaffold(
       bottomNavigationBar: HiddenBottomNavigationBar(
         child: Container(
@@ -68,7 +66,4 @@ class _WorkPageState extends State<WorkPage>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
