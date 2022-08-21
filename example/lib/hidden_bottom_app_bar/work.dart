@@ -15,7 +15,6 @@ class WorkPage extends StatefulWidget {
 class _WorkPageState extends State<WorkPage> {
   @override
   Widget build(BuildContext context) {
-    print("build work");
     HiddenWidgetController logic = Get.find();
     return Scaffold(
       bottomNavigationBar: HiddenBottomNavigationBar(
