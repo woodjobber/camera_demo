@@ -6,10 +6,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image/image.dart' as img;
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:swipe_direction_detector/swipe_direction_detector.dart';
 import 'package:video_player/video_player.dart';
+
+Future saveImage(XFile imageFile) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  return ImageGallerySaver.saveImage(await imageFile.readAsBytes());
+}
 
 /// https://github.com/flutter/flutter/issues/29951
 /// Camera example home widget.
@@ -290,7 +296,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       length: length,
     );
     imageFile = xFile;
-
+    saveImage(xFile).then((value) {
+      print(value);
+    });
     return orientedImage;
   }
 

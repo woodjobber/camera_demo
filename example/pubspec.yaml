@@ -29,6 +29,10 @@ dependencies:
   permission_handler:
   flutter_icons: ^1.1.0
   flutter_bloc: ^8.1.1
+  image_gallery_saver: any
+  nb_dialog:
+    path: ../../nb_dialog
+
 dev_dependencies:
   integration_test:
     sdk: flutter

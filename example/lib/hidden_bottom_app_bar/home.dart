@@ -1,6 +1,7 @@
 import 'package:camerawesome_example/hidden_bottom_app_bar/animated_cross_second_child.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nb_dialog/nb_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -19,6 +20,19 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             showFirst = !showFirst;
           });
+          showAnimatedDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return ClassicGeneralDialogWidget(
+                titleText: '2323',
+                contentText: '2323',
+                actions: [Text('data'), Text('data')],
+              );
+            },
+            animationType: DialogTransitionType.fadeScale,
+            curve: Curves.fastOutSlowIn,
+          );
         },
         child: Container(
           color: Colors.white,

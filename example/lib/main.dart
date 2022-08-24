@@ -16,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'hidden_bottom_app_bar/main_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MainPage());
   // flutterExampleMain();
   // flutterCompassMain();

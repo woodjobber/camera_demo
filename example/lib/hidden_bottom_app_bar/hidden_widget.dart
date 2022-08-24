@@ -25,6 +25,7 @@ class _HiddenWidgetState extends State<HiddenWidget> {
 
   @override
   void dispose() {
+    ChangeNotifier;
     subscription.cancel();
     super.dispose();
   }

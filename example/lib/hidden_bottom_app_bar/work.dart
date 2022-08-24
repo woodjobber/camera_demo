@@ -52,7 +52,7 @@ class _WorkPageState extends State<WorkPage> {
             ),
             Align(
               child: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     logic.toggle();
                   },
                   icon: Icon(
