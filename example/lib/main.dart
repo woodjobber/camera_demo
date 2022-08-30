@@ -13,14 +13,17 @@ import 'package:flutter/services.dart';
 import 'package:image/image.dart' as imgUtils;
 import 'package:path_provider/path_provider.dart';
 
-import 'hidden_bottom_app_bar/main_page.dart';
+import 'flutter_camera.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MainPage());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  // runApp(MainPage());
   // flutterExampleMain();
   // flutterCompassMain();
-  // flutterMain();
+  flutterMain();
   // runApp(MaterialApp(home: MyApp(), debugShowCheckedModeBanner: false));
 }
 

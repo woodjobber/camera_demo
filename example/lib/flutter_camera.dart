@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
@@ -335,12 +336,14 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                             border: Border.all(color: Colors.pink)),
                         child: Center(
                           child: AspectRatio(
-                              aspectRatio: videoPreviewAspectRatio,
-                              child: RotatedBox(
-                                  quarterTurns:
-                                      convertOrientationToQuarterTurns(
-                                          orientation),
-                                  child: VideoPlayer(localVideoController))),
+                            aspectRatio: videoPreviewAspectRatio,
+                            child: VideoPlayer(localVideoController),
+                            // child: RotatedBox(
+                            //   quarterTurns:
+                            //       convertOrientationToQuarterTurns(orientation),
+                            //   child: VideoPlayer(localVideoController),
+                            // ),
+                          ),
                         ),
                       ),
               ),
@@ -852,7 +855,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
         orientation = await NativeDeviceOrientationCommunicator()
             .orientation(useSensor: true);
 
-        await fixImage(orientation);
+        // await fixImage(orientation);
         setState(() {
           videoController?.dispose();
           videoController = null;
@@ -909,7 +912,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
           await cameraController.unlockCaptureOrientation();
           showInSnackBar('Capture orientation unlocked');
         } else {
-          await cameraController.lockCaptureOrientation();
+          await cameraController.lockCaptureOrientation(getOrientation());
           showInSnackBar(
               'Capture orientation locked to ${cameraController.value.lockedCaptureOrientation.toString().split('.').last}');
         }
@@ -917,6 +920,30 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     } on CameraException catch (e) {
       _showCameraException(e);
     }
+  }
+
+  DeviceOrientation getOrientation() {
+    switch (orientation) {
+      case NativeDeviceOrientation.portraitUp:
+        return DeviceOrientation.portraitUp;
+        break;
+      case NativeDeviceOrientation.portraitDown:
+        return DeviceOrientation.portraitDown;
+        break;
+      case NativeDeviceOrientation.landscapeLeft:
+        // TODO: Handle this case.
+        return DeviceOrientation.landscapeRight;
+        break;
+      case NativeDeviceOrientation.landscapeRight:
+        // TODO: Handle this case.
+        return DeviceOrientation.landscapeLeft;
+        break;
+      case NativeDeviceOrientation.unknown:
+        // TODO: Handle this case.
+        return DeviceOrientation.portraitUp;
+        break;
+    }
+    return DeviceOrientation.portraitUp;
   }
 
   void onSetFlashModeButtonPressed(FlashMode mode) {
@@ -962,8 +989,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
         setState(() {});
       }
       if (file != null) {
-        // showInSnackBar('Video recorded to ${file.path}');
+        showInSnackBar('Video recorded to ${file.path}');
         videoFile = file;
+        ImageGallerySaver.saveFile(file.path);
         _startVideoPlayer();
       }
     });
