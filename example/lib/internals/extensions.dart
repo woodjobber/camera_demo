@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-extension SafeSetStateExtension on State {
+extension SafeSetState on State {
   FutureOr<void> safeSetState(FutureOr<dynamic> Function() fn) async {
     await fn();
     if (mounted &&

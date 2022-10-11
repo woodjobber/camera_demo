@@ -17,7 +17,7 @@ dependencies:
   image: ^3.0.2
   path_provider: ^2.0.2
   rxdart: ^0.27.1
-  video_player: ^2.1.6
+  video_player: ^2.4.7
   camera:
   native_device_orientation: ^1.1.4
   swipe_direction_detector:
